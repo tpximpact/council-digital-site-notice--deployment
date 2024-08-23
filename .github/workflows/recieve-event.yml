@@ -23,8 +23,8 @@ jobs:
 
       - name: Run custom command
         run: |
-          git init
           git config --global init.defaultBranch main
+          git init
           git submodule add https://github.com/tpximpact/council-digital-site-notice
           git status
           ls -lah
