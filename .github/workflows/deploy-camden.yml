@@ -26,6 +26,7 @@ jobs:
           mkdir council-digital-site-notice/.next
 
           mkdir council-digital-site-notice/.next/standalone
+          mkdir council-digital-site-notice/.next/standalone/.next
           touch council-digital-site-notice/.next/standalone/standalone.html
 
           mkdir council-digital-site-notice/.next/static
@@ -49,7 +50,7 @@ jobs:
           ls -lah
           cp -rp ../council-digital-site-notice/public ./public
           ls -lah
-          cp -rp ../council-digital-site-notice/.next/standalone/ ./
+          cp -rp ../council-digital-site-notice/.next/standalone ./
           ls -lah
           cp -rp ../council-digital-site-notice/.next/static ./.next/static
           ls -lah
