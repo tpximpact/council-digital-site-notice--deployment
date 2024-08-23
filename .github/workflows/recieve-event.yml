@@ -24,28 +24,28 @@ jobs:
       - name: Run custom command
         run: |
           git init
-          git submodule add https://github.com/tpximpact/council-digital-site-notice dsn
+          git submodule add https://github.com/tpximpact/council-digital-site-notice
           git status
           ls -lah
 
-      # - name: Deploy to Heroku
-      #   uses: akhileshns/heroku-deploy@v3.13.15
-      #   with:
-      #     heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-      #     heroku_app_name: ${{ secrets.HEROKU_APP_NAME_LAMBETH }}
-      #     heroku_email: ${{ secrets.HEROKU_EMAIL }}
-      #     usedocker: true
-      #     stack: "container"
-      #     appdir: "./dsn"
-      #   env:
-      #     HD_FEEDBACK_FROM_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_FROM_EMAIL }}
-      #     HD_FEEDBACK_TO_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_TO_EMAIL }}
-      #     HD_GOOGLE_SERVICE_PRIVATE_KEY: ${{ secrets.LAMBETH_GOOGLE_SERVICE_PRIVATE_KEY }}
-      #     HD_NEXT_PUBLIC_API_URL: ${{ secrets.LAMBETH_NEXT_PUBLIC_API_URL }}
-      #     HD_NEXT_PUBLIC_DATA_PROVIDER: ${{ secrets.LAMBETH_NEXT_PUBLIC_DATA_PROVIDER }}
-      #     HD_NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL: ${{ secrets.LAMBETH_NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL }}
-      #     HD_NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_DATASET }}
-      #     HD_NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_PROJECT_ID }}
-      #     HD_NEXT_PUBLIC_SANITY_SECRET_TOKEN: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_SECRET_TOKEN }}
-      #     HD_NEXT_PUBLIC_SPREADSHEET_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SPREADSHEET_ID }}
-      #     HD_SENDGRID_API_KEY: ${{ secrets.LAMBETH_SENDGRID_API_KEY }}
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.13.15
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME_LAMBETH }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          usedocker: true
+          stack: "container"
+          appdir: "./council-digital-site-notice"
+        env:
+          HD_FEEDBACK_FROM_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_FROM_EMAIL }}
+          HD_FEEDBACK_TO_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_TO_EMAIL }}
+          HD_GOOGLE_SERVICE_PRIVATE_KEY: ${{ secrets.LAMBETH_GOOGLE_SERVICE_PRIVATE_KEY }}
+          HD_NEXT_PUBLIC_API_URL: ${{ secrets.LAMBETH_NEXT_PUBLIC_API_URL }}
+          HD_NEXT_PUBLIC_DATA_PROVIDER: ${{ secrets.LAMBETH_NEXT_PUBLIC_DATA_PROVIDER }}
+          HD_NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL: ${{ secrets.LAMBETH_NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL }}
+          HD_NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_DATASET }}
+          HD_NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          HD_NEXT_PUBLIC_SANITY_SECRET_TOKEN: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_SECRET_TOKEN }}
+          HD_NEXT_PUBLIC_SPREADSHEET_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SPREADSHEET_ID }}
+          HD_SENDGRID_API_KEY: ${{ secrets.LAMBETH_SENDGRID_API_KEY }}
