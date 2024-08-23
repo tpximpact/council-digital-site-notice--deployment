@@ -26,10 +26,10 @@ jobs:
           mkdir council-digital-site-notice/.next
 
           mkdir council-digital-site-notice/.next/standalone
-          touch council-digital-site-notice/.next/standalone.html
+          touch council-digital-site-notice/.next/standalone/standalone.html
 
           mkdir council-digital-site-notice/.next/static
-          touch council-digital-site-notice/.next/static.html
+          touch council-digital-site-notice/.next/static/static.html
 
           ls -lah council-digital-site-notice
           ls -lah council-digital-site-notice/.next
