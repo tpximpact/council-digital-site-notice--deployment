@@ -38,19 +38,13 @@ jobs:
 
           echo "---------"
           mkdir app
-          ls -lah
-          ls -lah council-digital-site-notice
-          ls -lah council-digital-site-notice/.next
           cd app
-          ls -lah
           cp -rp ../council-digital-site-notice/public ./public
-          ls -lah
           cp -rp ../council-digital-site-notice/.next/standalone/* ./
+          echo .next folder should exist now:
           ls -lah
-          cp -rp ../council-digital-site-notice/.next/static/ ./.next/
-          ls -lah
+          cp -rp ../council-digital-site-notice/.next/static ./.next/static
           ls -lah .next
-          ls -lah .next/static
 
       # - uses: actions/checkout@v4
 
