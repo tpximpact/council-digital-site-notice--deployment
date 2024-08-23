@@ -39,13 +39,16 @@ jobs:
 
 
           echo "---------"
-          mkdir app
-          cd app
-          cp -rp ../council-digital-site-notice/public ./public
-          cp -rp ../council-digital-site-notice/.next/standalone/{.,}* ./
+          mkdir -p app
+          rsync -a ../council-digital-site-notice/public/ ./app/public/
+          rsync -a ../council-digital-site-notice/.next/standalone/ ./app/
+          rsync -a ../council-digital-site-notice/.next/static/ ./app/.next/static/
+
+          # cp -rp ../council-digital-site-notice/public ./public
+          # cp -rp ../council-digital-site-notice/.next/standalone/{.,}* ./
           echo .next folder should exist now:
           ls -lah app
-          cp -rp ../council-digital-site-notice/.next/static ./.next/static
+          # cp -rp ../council-digital-site-notice/.next/static ./.next/static
           ls -lah .next
 
       # - uses: actions/checkout@v4
