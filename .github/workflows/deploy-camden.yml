@@ -46,9 +46,8 @@ jobs:
           cd ..
           mkdir app
           cd app
-          mkdir .next
           cp -rp ../council-digital-site-notice/public ./public
-          cp -rp ../council-digital-site-notice/.next/standalone ./
+          cp -rp ../council-digital-site-notice/.next/standalone/ ./
           cp -rp ../council-digital-site-notice/.next/static ./.next/static
           ls -lah
           ls -lah .next
