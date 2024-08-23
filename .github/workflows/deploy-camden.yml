@@ -40,11 +40,12 @@ jobs:
 
           echo "---------"
           mkdir app
-          # cp -rp ./council-digital-site-notice/public ./app/public
-          cp -rp ./council-digital-site-notice/.next/standalone/{.,}* ./app
+          cd app
+          cp -rp ../council-digital-site-notice/public ./public
+          cp -rp ../council-digital-site-notice/.next/standalone/{.,}* ./app
           echo .next folder should exist now:
           ls -lah app
-          cp -rp ./council-digital-site-notice/.next/static ./app/.next/static
+          cp -rp ../council-digital-site-notice/.next/static ./.next/static
           ls -lah .next
 
       # - uses: actions/checkout@v4
