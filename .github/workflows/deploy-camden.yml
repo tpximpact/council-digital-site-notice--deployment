@@ -40,9 +40,9 @@ jobs:
 
           echo "---------"
           mkdir -p app
-          rsync -a ../council-digital-site-notice/public/ ./app/public/
-          rsync -a ../council-digital-site-notice/.next/standalone/ ./app/
-          rsync -a ../council-digital-site-notice/.next/static/ ./app/.next/static/
+          rsync -a ./council-digital-site-notice/public/ ./app/public/
+          rsync -a ./council-digital-site-notice/.next/standalone/ ./app/
+          rsync -a ./council-digital-site-notice/.next/static/ ./app/.next/static/
 
           # cp -rp ../council-digital-site-notice/public ./public
           # cp -rp ../council-digital-site-notice/.next/standalone/{.,}* ./
