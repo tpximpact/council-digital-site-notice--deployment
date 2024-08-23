@@ -1,0 +1,57 @@
+name: Deploy to Camden Netlify
+
+on:
+  repository_dispatch:
+    types: [code_update]
+
+jobs:
+  handle-event:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Handle repository dispatch event
+        run: |
+          echo "Received repository dispatch event"
+          echo "${{ github.event.client_payload.description }}"
+
+      - uses: actions/checkout@v4
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Netlify
+        run: npm install netlify-cli@17.10.1 -g
+
+      - name: Checkout DSN code
+        run: |
+          git submodule add https://github.com/tpximpact/council-digital-site-notice
+          ls -lah council-digital-site-notice
+          cd council-digital-site-notice
+          git checkout DSNPI-45-sort-hosting-out-for-lambeth-dsn
+
+      - name: Install dependencies
+        run: |
+          cd council-digital-site-notice
+          yarn --frozen-lockfile
+
+      - name: Build project
+        run: |
+          cd council-digital-site-notice
+          yarn build
+
+      - name: Deploy to Netlify
+        id: netlify_deploy
+        run: |
+          cd council-digital-site-notice
+          BRANCH_NAME=$(git symbolic-ref --short HEAD)
+          ls -lah
+          echo $BRANCH_NAME
+          # prod_flag=""
+          # if [ "$BRANCH_NAME" = "main" ]; then prod_flag="--prod"; fi
+          # netlify deploy \
+          #   --dir dist \
+          #   --site ${{ secrets.CAMDEN_NETLIFY_SITE_ID }} \
+          #   --auth ${{ secrets.CAMDEN_NETLIFY_API_TOKEN }} \
+          #   $prod_flag
