@@ -42,7 +42,7 @@ jobs:
           mkdir app
           cd app
           cp -rp ../council-digital-site-notice/public ./public
-          cp -rp ../council-digital-site-notice/.next/standalone/ ./
+          cp -rp ../council-digital-site-notice/.next/standalone/ ../app
           echo .next folder should exist now:
           ls -lah
           cp -rp ../council-digital-site-notice/.next/static ./.next/static
