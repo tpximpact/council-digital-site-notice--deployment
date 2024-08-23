@@ -38,6 +38,7 @@ jobs:
           usedocker: true
           stack: "container"
           appdir: "./council-digital-site-notice"
+          dontuseforce: 1
         env:
           HD_FEEDBACK_FROM_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_FROM_EMAIL }}
           HD_FEEDBACK_TO_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_TO_EMAIL }}
