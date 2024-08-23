@@ -33,8 +33,6 @@ jobs:
 
           mkdir council-digital-site-notice/.next/standalone/.next
           touch council-digital-site-notice/.next/standalone/.next/next-standalone.html
-          ls -lah council-digital-site-notice/.next/standalone
-          ls -lah council-digital-site-notice/.next/standalone/.next
 
           mkdir council-digital-site-notice/.next/static
           touch council-digital-site-notice/.next/static/static.html
@@ -44,7 +42,7 @@ jobs:
           mkdir app
           cd app
           cp -rp ../council-digital-site-notice/public ./public
-          cp -rp ../council-digital-site-notice/.next/standalone/* ./
+          cp -rp ../council-digital-site-notice/.next/standalone/ ./
           echo .next folder should exist now:
           ls -lah
           cp -rp ../council-digital-site-notice/.next/static ./.next/static
