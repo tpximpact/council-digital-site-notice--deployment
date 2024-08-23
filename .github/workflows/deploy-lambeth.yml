@@ -36,7 +36,12 @@ jobs:
           stack: "container"
           appdir: "./council-digital-site-notice"
           dontuseforce: 1
+          docker_build_args: |
+            NEXT_PUBLIC_SANITY_PROJECT_ID
+            NEXT_PUBLIC_SANITY_DATASET
         env:
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_DATASET }}
           HD_FEEDBACK_FROM_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_FROM_EMAIL }}
           HD_FEEDBACK_TO_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_TO_EMAIL }}
           HD_GOOGLE_SERVICE_PRIVATE_KEY: ${{ secrets.LAMBETH_GOOGLE_SERVICE_PRIVATE_KEY }}
