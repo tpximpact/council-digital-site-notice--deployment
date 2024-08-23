@@ -51,6 +51,13 @@ jobs:
       #     rsync -a ./council-digital-site-notice/.next/standalone/ ./app/
       #     rsync -a ./council-digital-site-notice/.next/static/ ./app/.next/static/
 
+      - name: Create netlify.toml
+        run: |
+          echo '[build]' > netlify.toml
+          echo '    base = "/"' >> netlify.toml
+          echo '    command = "yarn build"' >> netlify.toml
+          echo '    publish = "/.next"' >> netlify.toml
+
       - name: Deploy to Netlify
         id: netlify_deploy
         run: |
