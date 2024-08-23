@@ -52,7 +52,7 @@ jobs:
           ls -lah
           cp -rp $GITHUB_WORKSPACE/council-digital-site-notice/public ./public
           ls -lah
-          cp -rp $GITHUB_WORKSPACE/council-digital-site-notice/.next/standalone ./
+          cp -rp $GITHUB_WORKSPACE/council-digital-site-notice/.next/standalone/ ./
           ls -lah
           cp -rp $GITHUB_WORKSPACE/council-digital-site-notice/.next/static ./.next/static
           ls -lah
