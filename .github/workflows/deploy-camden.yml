@@ -40,7 +40,7 @@ jobs:
           mkdir app
           ls -lah
           ls -lah council-digital-site-notice
-          ls -lah council-digital-site-notice/standalone
+          ls -lah council-digital-site-notice/.next/standalone
           cd app
           ls -lah
           cp -rp ../council-digital-site-notice/public ./public
@@ -86,7 +86,7 @@ jobs:
       #     cd app
       #     cp -rp ../council-digital-site-notice/public ./public
       #     ls -lah
-      #     cp -rp ../council-digital-site-notice/.next/standalone/ ./
+      #     cp -rp ../council-digital-site-notice/.next/standalone/* ./
       #     ls -lah
       #     cp -rp ../council-digital-site-notice/.next/static ./.next/static
       #     ls -lah
