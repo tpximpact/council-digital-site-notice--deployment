@@ -14,38 +14,26 @@ jobs:
           echo "Received repository dispatch event"
           echo "${{ github.event.client_payload.description }}"
 
-      - uses: actions/checkout@v4
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install Netlify
-        run: npm install netlify-cli@17.10.1 -g
-
-      - name: Checkout DSN code
-        run: |
-          git submodule add https://github.com/tpximpact/council-digital-site-notice
-          ls -lah council-digital-site-notice
-          cd council-digital-site-notice
-          git checkout DSNPI-45-sort-hosting-out-for-lambeth-dsn
-
-      - name: Install dependencies
-        run: |
-          cd council-digital-site-notice
-          yarn --frozen-lockfile
-
       - name: Build project
         env:
           NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }}
           NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }}
         run: |
-          cd council-digital-site-notice
-          yarn build
-          cd ..
+          mkdir council-digital-site-notice
+          mkdir council-digital-site-notice/public
+          touch council-digital-site-notice/public/public.html
+
+          mkdir council-digital-site-notice/.next
+
+          mkdir council-digital-site-notice/.next/standalone
+          touch council-digital-site-notice/.next/standalone.html
+
+          mkdir council-digital-site-notice/.next/static
+          touch council-digital-site-notice/.next/static.html
+
           mkdir app
           cd app
+          ls -lah
           cp -rp ../council-digital-site-notice/public ./public
           ls -lah
           cp -rp ../council-digital-site-notice/.next/standalone/ .
@@ -55,15 +43,56 @@ jobs:
           ls -lah .next
           ls -lah .next/static
 
-      - name: Deploy to Netlify
-        id: netlify_deploy
-        run: |
-          BRANCH_NAME=$(git symbolic-ref --short HEAD)
-          ls -lah
-          echo $BRANCH_NAME
-          netlify link --id ${{ secrets.CAMDEN_NETLIFY_SITE_ID }} 
-          netlify env:set NEXT_PUBLIC_SANITY_PROJECT_ID ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }} 
-          netlify env:set NEXT_PUBLIC_SANITY_DATASET ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }}
+      # - uses: actions/checkout@v4
+
+      # - name: Setup NodeJS
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
+
+      # - name: Install Netlify
+      #   run: npm install netlify-cli@17.10.1 -g
+
+      # - name: Checkout DSN code
+      #   run: |
+      #     git submodule add https://github.com/tpximpact/council-digital-site-notice
+      #     ls -lah council-digital-site-notice
+      #     cd council-digital-site-notice
+      #     git checkout DSNPI-45-sort-hosting-out-for-lambeth-dsn
+
+      # - name: Install dependencies
+      #   run: |
+      #     cd council-digital-site-notice
+      #     yarn --frozen-lockfile
+
+      # - name: Build project
+      #   env:
+      #     NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }}
+      #     NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }}
+      #   run: |
+      #     cd council-digital-site-notice
+      #     yarn build
+      #     cd ..
+      #     mkdir app
+      #     cd app
+      #     cp -rp ../council-digital-site-notice/public ./public
+      #     ls -lah
+      #     cp -rp ../council-digital-site-notice/.next/standalone/ .
+      #     ls -lah
+      #     cp -rp ../council-digital-site-notice/.next/static ./.next/static
+      #     ls -lah
+      #     ls -lah .next
+      #     ls -lah .next/static
+
+      # - name: Deploy to Netlify
+      #   id: netlify_deploy
+      #   run: |
+      #     BRANCH_NAME=$(git symbolic-ref --short HEAD)
+      #     ls -lah
+      #     echo $BRANCH_NAME
+      #     netlify link --id ${{ secrets.CAMDEN_NETLIFY_SITE_ID }}
+      #     netlify env:set NEXT_PUBLIC_SANITY_PROJECT_ID ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }}
+      #     netlify env:set NEXT_PUBLIC_SANITY_DATASET ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }}
 
 # prod_flag=""
 # if [ "$BRANCH_NAME" = "main" ]; then prod_flag="--prod"; fi
