@@ -29,8 +29,9 @@ jobs:
           mkdir council-digital-site-notice/.next
 
           mkdir council-digital-site-notice/.next/standalone
-          mkdir council-digital-site-notice/.next/standalone/.next
           touch council-digital-site-notice/.next/standalone/standalone.html
+          mkdir council-digital-site-notice/.next/standalone/.next
+          touch council-digital-site-notice/.next/standalone/.next/next-standalone.html
 
           mkdir council-digital-site-notice/.next/static
           touch council-digital-site-notice/.next/static/static.html
