@@ -37,6 +37,9 @@ jobs:
           yarn --frozen-lockfile
 
       - name: Build project
+        env:
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }}
         run: |
           cd council-digital-site-notice
           yarn build
@@ -44,10 +47,19 @@ jobs:
       - name: Deploy to Netlify
         id: netlify_deploy
         run: |
-          cd council-digital-site-notice
           BRANCH_NAME=$(git symbolic-ref --short HEAD)
           ls -lah
           echo $BRANCH_NAME
+
+          # set env vars so they stay in sync with the project
+          netlify env:set NEXT_PUBLIC_SANITY_PROJECT_ID ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }} \
+            --site ${{ secrets.CAMDEN_NETLIFY_SITE_ID }} \
+            --auth ${{ secrets.CAMDEN_NETLIFY_API_TOKEN }} 
+          netlify env:set NEXT_PUBLIC_SANITY_DATASET ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }} \
+            --site ${{ secrets.CAMDEN_NETLIFY_SITE_ID }} \
+            --auth ${{ secrets.CAMDEN_NETLIFY_API_TOKEN }} 
+
+            
           # prod_flag=""
           # if [ "$BRANCH_NAME" = "main" ]; then prod_flag="--prod"; fi
           # netlify deploy \
