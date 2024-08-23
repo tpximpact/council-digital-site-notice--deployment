@@ -17,6 +17,8 @@ jobs:
       - uses: docker/setup-buildx-action@v3
 
       - uses: actions/checkout@v4
+
+      - uses: actions/checkout@v4
         with:
           repository: "tpximpact/council-digital-site-notice"
           path: dsn
