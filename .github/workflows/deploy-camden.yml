@@ -39,6 +39,8 @@ jobs:
           echo "---------"
           mkdir app
           ls -lah
+          ls -lah council-digital-site-notice
+          ls -lah council-digital-site-notice/standalone
           cd app
           ls -lah
           cp -rp ../council-digital-site-notice/public ./public
