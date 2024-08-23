@@ -14,41 +14,6 @@ jobs:
           echo "Received repository dispatch event"
           echo "${{ github.event.client_payload.description }}"
 
-      - name: Build project
-        env:
-          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }}
-          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }}
-        run: |
-          echo "Current working directory: $GITHUB_WORKSPACE"
-
-          ls -lah
-          mkdir council-digital-site-notice
-          mkdir council-digital-site-notice/public
-          touch council-digital-site-notice/public/public.html
-
-          mkdir council-digital-site-notice/.next
-
-          mkdir council-digital-site-notice/.next/standalone
-          touch council-digital-site-notice/.next/standalone/standalone.html
-
-          mkdir council-digital-site-notice/.next/standalone/.next
-          touch council-digital-site-notice/.next/standalone/.next/next-standalone.html
-
-          mkdir council-digital-site-notice/.next/static
-          touch council-digital-site-notice/.next/static/static.html
-
-
-          echo "---------"
-          mkdir -p app
-          rsync -a ./council-digital-site-notice/public/ ./app/public/
-          rsync -a ./council-digital-site-notice/.next/standalone/ ./app/
-          rsync -a ./council-digital-site-notice/.next/static/ ./app/.next/static/
-
-          ls -lah app
-          # cp -rp ../council-digital-site-notice/public ./public
-          # cp -rp ../council-digital-site-notice/.next/standalone/{.,}* ./
-          # cp -rp ../council-digital-site-notice/.next/static ./.next/static
-
       - uses: actions/checkout@v4
 
       - name: Setup NodeJS
@@ -83,27 +48,20 @@ jobs:
           rsync -a ./council-digital-site-notice/public/ ./app/public/
           rsync -a ./council-digital-site-notice/.next/standalone/ ./app/
           rsync -a ./council-digital-site-notice/.next/static/ ./app/.next/static/
-          # mkdir app
-          # cd app
-          # cp -rp ../council-digital-site-notice/public ./public
-          # cp -rp ../council-digital-site-notice/.next/standalone/* ./
-          # cp -rp ../council-digital-site-notice/.next/static ./.next/static
 
       - name: Deploy to Netlify
         id: netlify_deploy
         run: |
-          BRANCH_NAME=$(git symbolic-ref --short HEAD)
           ls -lah
-          echo $BRANCH_NAME
           netlify link --id ${{ secrets.CAMDEN_NETLIFY_SITE_ID }}
           netlify env:set NEXT_PUBLIC_SANITY_PROJECT_ID ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }}
           netlify env:set NEXT_PUBLIC_SANITY_DATASET ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }}
 
-# prod_flag=""
-# if [ "$BRANCH_NAME" = "main" ]; then prod_flag="--prod"; fi
-# netlify deploy \
-# --build yarn build
-#   --dir .next \
-#   --site ${{ secrets.CAMDEN_NETLIFY_SITE_ID }} \
-#   --auth ${{ secrets.CAMDEN_NETLIFY_API_TOKEN }} \
-#   $prod_flag
+          BRANCH_NAME=$(git symbolic-ref --short HEAD)
+          prod_flag=""
+          if [ "$BRANCH_NAME" = "main" ]; then prod_flag="--prod"; fi
+          netlify deploy \
+            --dir app \
+            --site ${{ secrets.CAMDEN_NETLIFY_SITE_ID }} \
+            --auth ${{ secrets.CAMDEN_NETLIFY_API_TOKEN }} \
+            $prod_flag
