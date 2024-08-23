@@ -57,11 +57,12 @@ jobs:
           echo '    base = "/"' >> netlify.toml
           echo '    command = "yarn build"' >> netlify.toml
           echo '    publish = "/.next"' >> netlify.toml
-          mv netlify.toml council-digital-site-notice/
+          cp netlify.toml council-digital-site-notice/
 
       - name: Deploy to Netlify
         id: netlify_deploy
         run: |
+          cat netlify.toml
           # @TODO need to authorise this each time
           # netlify link --id ${{ secrets.CAMDEN_NETLIFY_SITE_ID }}
           # netlify env:set NEXT_PUBLIC_SANITY_PROJECT_ID ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }}
