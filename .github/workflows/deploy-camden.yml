@@ -19,6 +19,8 @@ jobs:
           NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }}
           NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }}
         run: |
+          echo "Current working directory: $GITHUB_WORKSPACE"
+
           mkdir council-digital-site-notice
           mkdir council-digital-site-notice/public
           touch council-digital-site-notice/public/public.html
@@ -48,11 +50,11 @@ jobs:
           mkdir app
           cd app
           ls -lah
-          cp -rp ../council-digital-site-notice/public ./public
+          cp -rp $GITHUB_WORKSPACE/council-digital-site-notice/public ./public
           ls -lah
-          cp -rp ../council-digital-site-notice/.next/standalone/ .
+          cp -rp $GITHUB_WORKSPACE/council-digital-site-notice/.next/standalone ./
           ls -lah
-          cp -rp ../council-digital-site-notice/.next/static ./.next/static
+          cp -rp $GITHUB_WORKSPACE/council-digital-site-notice/.next/static ./.next/static
           ls -lah
           ls -lah .next
           ls -lah .next/static
