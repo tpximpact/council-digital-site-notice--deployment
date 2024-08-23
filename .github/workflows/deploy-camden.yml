@@ -47,7 +47,7 @@ jobs:
           ls -lah
           cp -rp ../council-digital-site-notice/.next/standalone/* ./
           ls -lah
-          cp -rp ../council-digital-site-notice/.next/static ./.next
+          cp -rp ../council-digital-site-notice/.next/static/ ./.next/
           ls -lah
           ls -lah .next
           ls -lah .next/static
