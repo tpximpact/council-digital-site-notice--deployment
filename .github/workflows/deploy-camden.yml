@@ -2,9 +2,9 @@
 
 name: Deploy to Camden Netlify
 
-on:
-  repository_dispatch:
-    types: [code_update]
+# on:
+#   repository_dispatch:
+#     types: [code_update]
 
 jobs:
   handle-event:
