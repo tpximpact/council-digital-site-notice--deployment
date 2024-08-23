@@ -26,8 +26,10 @@ jobs:
       - name: Run custom command
         run: |
           git submodule add https://github.com/tpximpact/council-digital-site-notice
+          git submodule update --quiet --init --depth=1
           git status
           ls -lah
+          ls -lah council-digital-site-notice
 
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.13.15
