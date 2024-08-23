@@ -34,7 +34,7 @@ jobs:
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           usedocker: true
           stack: "container"
-          appdir: "dsn"
+          appdir: "./dsn"
         env:
           HD_FEEDBACK_FROM_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_FROM_EMAIL }}
           HD_FEEDBACK_TO_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_TO_EMAIL }}
