@@ -16,6 +16,8 @@ jobs:
 
       - uses: docker/setup-buildx-action@v3
 
+      - uses: actions/checkout@v4
+
       # - uses: actions/checkout@v4
       #   with:
       #     repository: "tpximpact/council-digital-site-notice"
@@ -23,8 +25,6 @@ jobs:
 
       - name: Run custom command
         run: |
-          git config --global init.defaultBranch main
-          git init
           git submodule add https://github.com/tpximpact/council-digital-site-notice
           git status
           ls -lah
