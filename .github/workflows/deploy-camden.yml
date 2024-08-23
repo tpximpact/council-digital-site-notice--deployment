@@ -30,8 +30,11 @@ jobs:
 
           mkdir council-digital-site-notice/.next/standalone
           touch council-digital-site-notice/.next/standalone/standalone.html
+
           mkdir council-digital-site-notice/.next/standalone/.next
           touch council-digital-site-notice/.next/standalone/.next/next-standalone.html
+          ls -lah council-digital-site-notice/.next/standalone
+          ls -lah council-digital-site-notice/.next/standalone/.next
 
           mkdir council-digital-site-notice/.next/static
           touch council-digital-site-notice/.next/static/static.html
@@ -74,19 +77,14 @@ jobs:
       #     NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }}
       #     NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }}
       #   run: |
-      #     cd council-digital-site-notice
-      #     yarn build
-      #     cd ..
-      #     mkdir app
-      #     cd app
-      #     cp -rp ../council-digital-site-notice/public ./public
-      #     ls -lah
-      #     cp -rp ../council-digital-site-notice/.next/standalone/* ./
-      #     ls -lah
-      #     cp -rp ../council-digital-site-notice/.next/static ./.next/static
-      #     ls -lah
-      #     ls -lah .next
-      #     ls -lah .next/static
+      # cd council-digital-site-notice
+      # yarn build
+      # cd ..
+      # mkdir app
+      # cd app
+      # cp -rp ../council-digital-site-notice/public ./public
+      # cp -rp ../council-digital-site-notice/.next/standalone/* ./
+      # cp -rp ../council-digital-site-notice/.next/static ./.next/static
 
       # - name: Deploy to Netlify
       #   id: netlify_deploy
