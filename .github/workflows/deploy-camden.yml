@@ -31,19 +31,27 @@ jobs:
           mkdir council-digital-site-notice/.next/static
           touch council-digital-site-notice/.next/static/static.html
 
+          echo council-digital-site-notice
           ls -lah council-digital-site-notice
+
+          echo council-digital-site-notice/.next         
           ls -lah council-digital-site-notice/.next
+
+          echo council-digital-site-notice/.next/standalone
           ls -lah council-digital-site-notice/.next/standalone
+
+          echo council-digital-site-notice/.next/static         
           ls -lah council-digital-site-notice/.next/static
 
+          echo "---------"
           mkdir app
           cd app
           ls -lah
           cp -rp ../council-digital-site-notice/public ./public
           ls -lah
-          cp -rp ../council-digital-site-notice/.next/standalone/ .
+          cp -rp ../council-digital-site-notice/.next/standalone ./
           ls -lah
-          cp -rp ../council-digital-site-notice/.next/static/ ./.next/static
+          cp -rp ../council-digital-site-notice/.next/static ./.next/static
           ls -lah
           ls -lah .next
           ls -lah .next/static
