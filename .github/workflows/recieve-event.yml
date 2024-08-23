@@ -1,0 +1,16 @@
+name: Receive Repository Dispatch Event
+
+on:
+  repository_dispatch:
+    types: [custom_event]
+
+jobs:
+  handle-event:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Handle repository dispatch event
+        run: |
+          echo "Received repository dispatch event"
+          echo "Custom field value: ${{ github.event.client_payload.custom_field }}"
+          # Add your custom actions here
