@@ -21,6 +21,11 @@ jobs:
           repository: "tpximpact/council-digital-site-notice"
           path: dsn
 
+      - name: Run custom command
+        run: |
+          cd dsn
+          git status
+
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.13.15
         with:
