@@ -47,7 +47,9 @@ jobs:
           mkdir app
           cd app
           cp -rp ../council-digital-site-notice/public ./public
-          cp -rp ../council-digital-site-notice/.next/standalone/ ./
+          ls -lah
+          cp -rp ../council-digital-site-notice/.next/standalone/ .
+          ls -lah
           cp -rp ../council-digital-site-notice/.next/static ./.next/static
           ls -lah
           ls -lah .next
@@ -59,12 +61,9 @@ jobs:
           BRANCH_NAME=$(git symbolic-ref --short HEAD)
           ls -lah
           echo $BRANCH_NAME
-          netlify env:set NEXT_PUBLIC_SANITY_PROJECT_ID ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }} \
-            --site ${{ secrets.CAMDEN_NETLIFY_SITE_ID }} \
-            --auth ${{ secrets.CAMDEN_NETLIFY_API_TOKEN }} 
-          netlify env:set NEXT_PUBLIC_SANITY_DATASET ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }} \
-            --site ${{ secrets.CAMDEN_NETLIFY_SITE_ID }} \
-            --auth ${{ secrets.CAMDEN_NETLIFY_API_TOKEN }}
+          netlify link --id ${{ secrets.CAMDEN_NETLIFY_SITE_ID }} 
+          netlify env:set NEXT_PUBLIC_SANITY_PROJECT_ID ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }} 
+          netlify env:set NEXT_PUBLIC_SANITY_DATASET ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }}
 
 # prod_flag=""
 # if [ "$BRANCH_NAME" = "main" ]; then prod_flag="--prod"; fi
