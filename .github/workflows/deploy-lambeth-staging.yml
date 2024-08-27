@@ -57,3 +57,5 @@ jobs:
           HD_SENDGRID_API_KEY: ${{ secrets.LAMBETH_SENDGRID_API_KEY }}
           HD_FEEDBACK_TO_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_TO_EMAIL }}
           HD_FEEDBACK_FROM_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_FROM_EMAIL }}
+          # Api key
+          HD_NEXT_PUBLIC_API_KEY: ${{ secrets.LAMBETH_NEXT_PUBLIC_API_KEY }}
