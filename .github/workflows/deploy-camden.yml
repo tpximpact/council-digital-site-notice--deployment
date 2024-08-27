@@ -28,21 +28,9 @@ jobs:
           git submodule add https://github.com/tpximpact/council-digital-site-notice
           ls -lah council-digital-site-notice
 
-      - name: Install dependencies
-        run: |
-          cd council-digital-site-notice
-          yarn --frozen-lockfile
-
-      - name: Build project
-        env:
-          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }}
-          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }}
-        run: |
-          cd council-digital-site-notice
-          yarn build
-
-      - name: Deploy to Netlify
+      - name: Deploy to repo
         id: netlify_deploy
         run: |
           git remote add camden git@github.com:tpximpact/camden-digital-site-notice.git
+          # NOT TESTED YET
           # git push -u camden main

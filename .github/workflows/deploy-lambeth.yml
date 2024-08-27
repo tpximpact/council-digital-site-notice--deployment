@@ -7,6 +7,7 @@ on:
 jobs:
   handle-event:
     runs-on: ubuntu-latest
+    environment: production - lambeth
 
     steps:
       - name: Handle repository dispatch event
