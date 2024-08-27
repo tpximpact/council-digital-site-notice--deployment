@@ -1,10 +1,10 @@
-# NB access token expires 1/1/2025
+# @TODO need to test pushing to camden repo / will need to setup tokens
 
 name: Deploy to Camden Netlify
 
-on:
-  repository_dispatch:
-    types: [code_update]
+# on:
+#   repository_dispatch:
+#     types: [code_update]
 
 jobs:
   handle-event:
@@ -23,15 +23,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Netlify
-        run: npm install netlify-cli@17.10.1 -g
-
       - name: Checkout DSN code
         run: |
           git submodule add https://github.com/tpximpact/council-digital-site-notice
           ls -lah council-digital-site-notice
-          cd council-digital-site-notice
-          git checkout DSNPI-45-sort-hosting-out-for-lambeth-dsn
 
       - name: Install dependencies
         run: |
@@ -45,34 +40,9 @@ jobs:
         run: |
           cd council-digital-site-notice
           yarn build
-      #     cd ..
-      #     mkdir -p app
-      #     rsync -a ./council-digital-site-notice/public/ ./app/public/
-      #     rsync -a ./council-digital-site-notice/.next/standalone/ ./app/
-      #     rsync -a ./council-digital-site-notice/.next/static/ ./app/.next/static/
-
-      # - name: Create netlify.toml
-      #   run: |
-      #     echo '[build]' > netlify.toml
-      #     echo '    base = "/"' >> netlify.toml
-      #     echo '    command = "yarn build"' >> netlify.toml
-      #     echo '    publish = "/.next"' >> netlify.toml
-      #     cp netlify.toml council-digital-site-notice/
 
       - name: Deploy to Netlify
         id: netlify_deploy
         run: |
-          # cat netlify.toml
-          # @TODO need to authorise this each time
-          # netlify link --id ${{ secrets.CAMDEN_NETLIFY_SITE_ID }}
-          # netlify env:set NEXT_PUBLIC_SANITY_PROJECT_ID ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_PROJECT_ID }}
-          # netlify env:set NEXT_PUBLIC_SANITY_DATASET ${{ secrets.CAMDEN_NEXT_PUBLIC_SANITY_DATASET }}
-
-          BRANCH_NAME=$(git symbolic-ref --short HEAD)
-          prod_flag=""
-          if [ "$BRANCH_NAME" = "main" ]; then prod_flag="--prod"; fi
-          netlify deploy \
-            --dir council-digital-site-notice \
-            --site ${{ secrets.CAMDEN_NETLIFY_SITE_ID }} \
-            --auth ${{ secrets.CAMDEN_NETLIFY_API_TOKEN }} \
-            $prod_flag
+          git remote add camden git@github.com:tpximpact/camden-digital-site-notice.git
+          # git push -u camden main
