@@ -1,13 +1,13 @@
-name: Deploy to Lambeth Heroku
+name: Deploy to Lambeth Heroku Staging
 
 on:
   repository_dispatch:
-    types: [code_update]
+    types: [code_update_staging]
 
 jobs:
   handle-event:
     runs-on: ubuntu-latest
-    environment: production - lambeth
+    environment: staging - lambeth
 
     steps:
       - name: Handle repository dispatch event

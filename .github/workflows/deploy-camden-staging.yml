@@ -1,14 +1,15 @@
 # @TODO need to test pushing to camden repo / will need to setup tokens
 
-name: Deploy to Camden Netlify
+name: Deploy to Camden Netlify Staging
 
 # on:
 #   repository_dispatch:
-#     types: [code_update]
+#     types: [code_update_staging]
 
 jobs:
   handle-event:
     runs-on: ubuntu-latest
+    environment: staging - camden
 
     steps:
       - name: Handle repository dispatch event

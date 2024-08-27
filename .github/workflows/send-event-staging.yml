@@ -1,10 +1,11 @@
 name: Staging branch updated
 
-# on:
-#   push:
-#     branches:
-#       # - staging
-#       - main
+# we're testing in here hence main
+on:
+  push:
+    branches:
+      # - staging
+      - main
 
 jobs:
   send-event:
