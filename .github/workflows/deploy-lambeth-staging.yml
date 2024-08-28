@@ -37,12 +37,12 @@ jobs:
           stack: "container"
           appdir: "./council-digital-site-notice"
           # dontuseforce: 1
-          docker_build_args: |
-            NEXT_PUBLIC_SANITY_PROJECT_ID
-            NEXT_PUBLIC_SANITY_DATASET
+          # docker_build_args: |
+          #   NEXT_PUBLIC_SANITY_PROJECT_ID
+          #   NEXT_PUBLIC_SANITY_DATASET
         env:
-          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_PROJECT_ID }}
-          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_DATASET }}
+          # NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          # NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_DATASET }}
           # Sanity CMS
           HD_NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_PROJECT_ID }}
           HD_NEXT_PUBLIC_SANITY_SECRET_TOKEN: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_SECRET_TOKEN }}
