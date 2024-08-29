@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Handle repository dispatch event
         run: |
-          echo "Received repository dispatch event"
+          echo "Received repository dispatch event new"
           echo "${{ github.event.client_payload.description }}"
 
       - uses: docker/setup-buildx-action@v3
