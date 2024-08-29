@@ -24,7 +24,7 @@ jobs:
           git submodule add https://github.com/tpximpact/council-digital-site-notice
           ls -lah council-digital-site-notice
           cd council-digital-site-notice
-          git checkout DSNPI-45-sort-hosting-out-for-lambeth-dsn
+          git checkout testing-heroku-deploy
           ls -lah
 
       - name: Deploy to Heroku
