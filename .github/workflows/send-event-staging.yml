@@ -4,8 +4,8 @@ name: Staging branch updated
 on:
   push:
     branches:
-      # - staging
-      - main
+      - staging
+      # - main
 
 jobs:
   send-event:
