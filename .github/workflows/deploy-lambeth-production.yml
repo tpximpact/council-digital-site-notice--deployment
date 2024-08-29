@@ -3,6 +3,9 @@ name: Deploy to Lambeth Heroku Production new
 on:
   repository_dispatch:
     types: [code_update]
+  push:
+    branches:
+      - test-branch
 
 jobs:
   handle-event:
