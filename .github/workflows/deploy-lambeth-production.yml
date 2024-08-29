@@ -1,4 +1,4 @@
-name: Deploy to Lambeth Heroku Production
+name: Deploy to Lambeth Heroku Production new
 
 on:
   repository_dispatch:
@@ -10,7 +10,7 @@ jobs:
     environment: production - lambeth
 
     steps:
-      - name: Handle repository dispatch event
+      - name: Handle repository dispatch event new
         run: |
           echo "Received repository dispatch event new"
           echo "${{ github.event.client_payload.description }}"
