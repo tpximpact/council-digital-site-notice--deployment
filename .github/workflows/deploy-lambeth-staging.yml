@@ -7,23 +7,32 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: staging
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
           cache: "yarn"
+      - name: Checkout DSN code
+        run: |
+          git submodule add https://github.com/tpximpact/council-digital-site-notice
+          ls -lah council-digital-site-notice
+          cd council-digital-site-notice
+          git checkout main
+          ls -lah
       - name: Install dependencies
         run: yarn install
       - name: Build
         run: yarn build
       - name: Install Heroku CLI
         run: curl https://cli-assets.heroku.com/install.sh | sh
-      - name: Login to Heroku
+      - name: Deploy to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.LAMBETH_HEROKU_API_KEY }}
           HEROKU_EMAIL: ${{ secrets.LAMBETH_HEROKU_EMAIL }}
+          HEROKU_APP_NAME: ${{ secrets.LAMBETH_HEROKU_APP_NAME }}
         run: heroku login -i
       - name: Add Heroku remote
         env:
