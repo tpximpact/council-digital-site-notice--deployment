@@ -10,6 +10,13 @@ jobs:
     environment: staging
     steps:
       - uses: actions/checkout@v4
+      - name: Checkout DSN code
+        run: |
+          git submodule add https://github.com/tpximpact/council-digital-site-notice
+          ls -lah council-digital-site-notice
+          cd council-digital-site-notice
+          git checkout main
+          ls -lah
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
