@@ -30,6 +30,8 @@ jobs:
       - name: Create heroku.yml
         run: |
           ls -lah
+          cd council-digital-site-notice
+          ls -lah
           echo 'build:' > heroku.yml
           echo '  docker:' >> heroku.yml
           echo '    web: Dockerfile' >> heroku.yml
@@ -51,7 +53,7 @@ jobs:
           heroku_app_name: ${{ secrets.LAMBETH_HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.LAMBETH_HEROKU_EMAIL }}
           stack: "container"
-          # appdir: "council-digital-site-notice"
+          appdir: "council-digital-site-notice"
           branch: "DSNPI-45-sort-hosting-out-for-lambeth-dsn"
           healthcheck: "https://dsn-lambeth-production-bbde28caea16.herokuapp.com/api/healthcheck"
           dontuseforce: 1
