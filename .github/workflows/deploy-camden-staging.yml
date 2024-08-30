@@ -19,6 +19,7 @@ jobs:
 
       - name: Checkout DSN code
         run: |
+          git init
           # https://stackoverflow.com/a/69979203
           git config --unset-all http.https://github.com/.extraheader
           git config --global user.name "Council Digital Site Notice Deployment Bot"
