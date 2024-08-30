@@ -5,13 +5,17 @@ Repo to manage deployment of the various DSN sites
 - `DEPLOYMENT_TARGET_OWNER` - name of the owner of the repo you're sending the event to
 - `DEPLOYMENT_TARGET_REPO` - name of the repo you're sending the event to
 
+## Setup
+
+- Copy `.github/workflows/send-event-staging.yml` into your `.github/workflows/` folder - 🚨 **dont forget to check the target branches** 🚨
+- Copy `.github/workflows/send-event.yml` into your `.github/workflows/` folder
+
 ## Camden
+
+- environment: `not needed`
+- deploys to `netlify` via [this repo](https://github.com/tpximpact/camden-digital-site-notice/)
 
 ## Lambeth
 
 - environment: `production - lambeth`
-- `heroku stack:set container --app=hn-dsn-lambeth`
-- `heroku git:remote --remote heroku-hn-dsn-lambeth --app=hn-dsn-lambeth`
-- `git push heroku-hn-dsn-lambeth DSNPI-45-sort-hosting-out-for-lambeth-dsn:main`
-- `heroku git:remote --remote heroku-dsn-lambeth-production --app=dsn-lambeth-production`
-- `git push heroku-dsn-lambeth-production DSNPI-45-sort-hosting-out-for-lambeth-dsn:main`
+- deploys to `heroku`

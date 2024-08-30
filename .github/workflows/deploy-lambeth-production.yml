@@ -1,8 +1,8 @@
 name: Deploy to Lambeth Heroku Production
 
-on:
-  repository_dispatch:
-    types: [code_update]
+# on:
+#   repository_dispatch:
+#     types: [code_update]
 
 jobs:
   handle-event:
@@ -44,7 +44,6 @@ jobs:
           heroku_app_name: ${{ secrets.LAMBETH_HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.LAMBETH_HEROKU_EMAIL }}
           stack: "container"
-          # appdir: "council-digital-site-notice"
           branch: "DSNPI-45-sort-hosting-out-for-lambeth-dsn"
           healthcheck: "https://dsn-lambeth-production-bbde28caea16.herokuapp.com/api/healthcheck"
           dontuseforce: 1

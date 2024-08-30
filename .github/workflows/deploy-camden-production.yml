@@ -1,10 +1,8 @@
-# @TODO need to test pushing to camden repo / will need to setup tokens
+name: Deploy to Camden Netlify Production
 
-name: Deploy to Camden Netlify Staging
-
-on:
-  repository_dispatch:
-    types: [code_update_staging]
+# on:
+#   repository_dispatch:
+#     types: [code_update]
 
 jobs:
   handle-event:
@@ -19,11 +17,10 @@ jobs:
       - name: Checkout DSN code
         run: |
           git clone https://github.com/tpximpact/council-digital-site-notice .
-          git checkout DSNPI-45-sort-hosting-out-for-lambeth-dsn
-          ls -lah
 
       - name: Deploy to repo
         id: netlify_deploy
         run: |
           git remote add camden-dsn git@github.com:tpximpact/camden-digital-site-notice.git
-          git push camden-dsn DSNPI-45-sort-hosting-out-for-lambeth-dsn:staging
+
+# git push camden-dsn main
