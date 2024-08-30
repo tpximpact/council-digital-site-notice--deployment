@@ -48,8 +48,8 @@ jobs:
 
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.13.15
-        working-directory: ./council-digital-site-notice
         with:
+          working-directory: ./council-digital-site-notice
           heroku_api_key: ${{ secrets.LAMBETH_HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.LAMBETH_HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.LAMBETH_HEROKU_EMAIL }}
