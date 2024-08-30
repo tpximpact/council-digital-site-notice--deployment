@@ -49,7 +49,7 @@ jobs:
           heroku_email: ${{ secrets.LAMBETH_HEROKU_EMAIL }}
           stack: "container"
           # appdir: "council-digital-site-notice"
-          # branch: "DSNPI-45-sort-hosting-out-for-lambeth-dsn"
+          branch: "DSNPI-45-sort-hosting-out-for-lambeth-dsn"
           healthcheck: "https://dsn-lambeth-production-bbde28caea16.herokuapp.com/api/healthcheck"
           # dontuseforce: 1
         env:
