@@ -37,6 +37,7 @@ jobs:
           echo '    NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_DATASET }}' >> heroku.yml
           echo 'run:' >> heroku.yml
           echo '  web: yarn start' >> heroku.yml
+          git commit -m 'heroku.yml' --no-verify
 
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.13.15
