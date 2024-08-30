@@ -1,8 +1,8 @@
 name: Deploy to Lambeth Heroku Staging
 
-# on:
-#   repository_dispatch:
-#     types: [code_update_staging]
+on:
+  repository_dispatch:
+    types: [code_update_staging]
 
 jobs:
   handle-event:
@@ -15,17 +15,24 @@ jobs:
           echo "Received repository dispatch event"
           echo "${{ github.event.client_payload.description }}"
 
-      - uses: docker/setup-buildx-action@v3
-
-      - uses: actions/checkout@v4
-
       - name: Checkout DSN code
         run: |
-          git submodule add https://github.com/tpximpact/council-digital-site-notice
-          ls -lah council-digital-site-notice
-          cd council-digital-site-notice
-          git checkout DSNPI-45-sort-hosting-out-for-lambeth-dsn
-          ls -lah
+          git clone https://github.com/tpximpact/council-digital-site-notice .
+
+      - name: Create heroku.yml
+        run: |
+          echo 'build:' > heroku.yml
+          echo '  docker:' >> heroku.yml
+          echo '    web: Dockerfile' >> heroku.yml
+          echo '  config:' >> heroku.yml
+          echo '    NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_PROJECT_ID }}' >> heroku.yml
+          echo '    NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_DATASET }}' >> heroku.yml
+          echo 'run:' >> heroku.yml
+          echo '  web: yarn start' >> heroku.yml
+          git config user.name "Heroku-Deploy"
+          git config user.email "${{ secrets.LAMBETH_HEROKU_EMAIL }}"
+          git add 'heroku.yml'
+          git commit -m 'heroku.yml' --no-verify
 
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.13.15
@@ -33,19 +40,15 @@ jobs:
           heroku_api_key: ${{ secrets.LAMBETH_HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.LAMBETH_HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.LAMBETH_HEROKU_EMAIL }}
-          usedocker: true
           stack: "container"
-          appdir: "./council-digital-site-notice"
-          # dontuseforce: 1
-          docker_build_args: |
-            NEXT_PUBLIC_SANITY_PROJECT_ID
-            NEXT_PUBLIC_SANITY_DATASET
+          healthcheck: "https://dsn-lambeth-production-bbde28caea16.herokuapp.com/api/healthcheck"
+          dontuseforce: 1
         env:
           NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_PROJECT_ID }}
           NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_DATASET }}
           # Sanity CMS
           HD_NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_PROJECT_ID }}
-          HD_NEXT_PUBLIC_SANITY_SECRET_TOKEN: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_SECRET_TOKEN }}
+          HD_SANITY_SECRET_TOKEN: ${{ secrets.LAMBETH_SANITY_SECRET_TOKEN }}
           HD_NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_DATASET }}
           # Sanity Studio
           HD_NEXT_PUBLIC_API_URL: ${{ secrets.LAMBETH_NEXT_PUBLIC_API_URL }}
