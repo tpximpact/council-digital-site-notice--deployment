@@ -15,23 +15,14 @@ jobs:
           echo "Received repository dispatch event"
           echo "${{ github.event.client_payload.description }}"
 
-      - uses: docker/setup-buildx-action@v3
-
-      - uses: actions/checkout@v4
-
       - name: Checkout DSN code
         run: |
-          git submodule add https://github.com/tpximpact/council-digital-site-notice
-          ls -lah council-digital-site-notice
-          cd council-digital-site-notice
+          git clone https://github.com/tpximpact/council-digital-site-notice .
           git checkout DSNPI-45-sort-hosting-out-for-lambeth-dsn
           ls -lah
 
       - name: Create heroku.yml
         run: |
-          ls -lah
-          cd council-digital-site-notice
-          ls -lah
           echo 'build:' > heroku.yml
           echo '  docker:' >> heroku.yml
           echo '    web: Dockerfile' >> heroku.yml
@@ -53,7 +44,7 @@ jobs:
           heroku_app_name: ${{ secrets.LAMBETH_HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.LAMBETH_HEROKU_EMAIL }}
           stack: "container"
-          appdir: "council-digital-site-notice"
+          # appdir: "council-digital-site-notice"
           branch: "DSNPI-45-sort-hosting-out-for-lambeth-dsn"
           healthcheck: "https://dsn-lambeth-production-bbde28caea16.herokuapp.com/api/healthcheck"
           dontuseforce: 1
