@@ -19,13 +19,15 @@ jobs:
 
       - name: Checkout DSN code
         run: |
-          git init
+          git clone https://github.com/tpximpact/council-digital-site-notice .
+
+          git checkout DSNPI-45-sort-hosting-out-for-lambeth-dsn
+
+
           # https://stackoverflow.com/a/69979203
           git config --unset-all http.https://github.com/.extraheader
           git config --global user.name "Council Digital Site Notice Deployment Bot"
           git config --global user.email "${{secrets.CAMDEN_GITHUB_DEPLOY_EMAIL}}"
-          git clone https://github.com/tpximpact/council-digital-site-notice .
-          git checkout DSNPI-45-sort-hosting-out-for-lambeth-dsn
           ls -lah
 
       - name: Deploy to repo
