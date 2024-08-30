@@ -29,7 +29,6 @@ jobs:
 
       - name: Create heroku.yml
         run: |
-
           ls -lah
           echo 'build:' > heroku.yml
           echo '  docker:' >> heroku.yml
@@ -41,8 +40,9 @@ jobs:
           echo '  web: yarn start' >> heroku.yml
           git config user.name "Heroku-Deploy"
           git config user.email "${{ secrets.LAMBETH_HEROKU_EMAIL }}"
-          git add 'heroky.yml'
+          git add 'heroku.yml'
           git commit -m 'heroku.yml' --no-verify
+          ls -lah
 
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.13.15
