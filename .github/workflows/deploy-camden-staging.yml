@@ -37,7 +37,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.CAMDEN_GITHUB_DEPLOY_TOKEN }}
         run: |
-          git remote add camden-dsn https://x-access-token:${TOKEN}@github.com/tpximpact/camden-digital-site-notice.git
+          git remote add camden-dsn https://x-access-token:${TOKEN}@github.com/tpximpact/camden-digital-site-notice
 
       - name: Deploy to repo
         run: |
