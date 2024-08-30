@@ -33,11 +33,14 @@ jobs:
         run: |
           git config --get-all http.https://github.com/.extraheader && git config --unset-all http.https://github.com/.extraheader || echo "No extraheader to unset"
 
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.CAMDEN_GITHUB_DEPLOY_TOKEN }}
+
       - name: Add remote repo
-        env:
-          TOKEN: ${{ secrets.CAMDEN_GITHUB_DEPLOY_TOKEN }}
         run: |
-          git remote add camden-dsn https://x-access-token:${TOKEN}@github.com/tpximpact/camden-digital-site-notice
+          git remote add camden-dsn git@github.com:tpximpact/camden-digital-site-notice.git
 
       - name: Deploy to repo
         run: |
