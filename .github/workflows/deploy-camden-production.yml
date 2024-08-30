@@ -7,6 +7,7 @@ name: Deploy to Camden Netlify Production
 jobs:
   handle-event:
     runs-on: ubuntu-latest
+    environment: production - camden
 
     steps:
       - name: Handle repository dispatch event
