@@ -14,6 +14,9 @@ Repo to manage deployment of the various DSN sites
 
 - environment: `not needed`
 - deploys to `netlify` via [this repo](https://github.com/tpximpact/camden-digital-site-notice/)
+- requires fine grained personal access token with
+  - contents: set to read and write
+  - metadata: set tp read only
 
 ## Lambeth
 

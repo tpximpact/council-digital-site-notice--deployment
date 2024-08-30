@@ -23,16 +23,22 @@ jobs:
           git checkout DSNPI-45-sort-hosting-out-for-lambeth-dsn
           ls -lah
 
-      # https://stackoverflow.com/a/69979203
-      # git config --unset-all http.https://github.com/.extraheader
       - name: Setup git config
         run: |
           git config --global user.name "Council Digital Site Notice Deployment Bot"
           git config --global user.email "${{secrets.CAMDEN_GITHUB_DEPLOY_EMAIL}}"
 
-      - name: Deploy to repo
+      # https://stackoverflow.com/a/69979203
+      - name: Unset extraheader if exists
+        run: |
+          git config --get-all http.https://github.com/.extraheader && git config --unset-all http.https://github.com/.extraheader || echo "No extraheader to unset"
+
+      - name: Add remote repo
         env:
           TOKEN: ${{ secrets.CAMDEN_GITHUB_DEPLOY_TOKEN }}
         run: |
           git remote add camden-dsn https://x-access-token:${TOKEN}@github.com/tpximpact/camden-digital-site-notice.git
+
+      - name: Deploy to repo
+        run: |
           git push camden-dsn DSNPI-45-sort-hosting-out-for-lambeth-dsn:staging
