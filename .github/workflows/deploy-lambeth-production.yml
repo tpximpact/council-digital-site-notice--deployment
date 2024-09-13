@@ -18,7 +18,6 @@ jobs:
       - name: Checkout DSN code
         run: |
           git clone https://github.com/tpximpact/council-digital-site-notice .
-          git checkout DSNPI-45-sort-hosting-out-for-lambeth-dsn
           ls -lah
 
       - name: Create heroku.yml
@@ -27,12 +26,12 @@ jobs:
           echo '  docker:' >> heroku.yml
           echo '    web: Dockerfile' >> heroku.yml
           echo '  config:' >> heroku.yml
-          echo '    NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_PROJECT_ID }}' >> heroku.yml
-          echo '    NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_DATASET }}' >> heroku.yml
+          echo '    NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}' >> heroku.yml
+          echo '    NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}' >> heroku.yml
           echo 'run:' >> heroku.yml
           echo '  web: yarn start' >> heroku.yml
           git config user.name "Heroku-Deploy"
-          git config user.email "${{ secrets.LAMBETH_HEROKU_EMAIL }}"
+          git config user.email "${{ secrets.HEROKU_EMAIL }}"
           git add 'heroku.yml'
           git commit -m 'heroku.yml' --no-verify
           ls -lah
@@ -40,29 +39,28 @@ jobs:
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.13.15
         with:
-          heroku_api_key: ${{ secrets.LAMBETH_HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.LAMBETH_HEROKU_APP_NAME }}
-          heroku_email: ${{ secrets.LAMBETH_HEROKU_EMAIL }}
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
           stack: "container"
-          branch: "DSNPI-45-sort-hosting-out-for-lambeth-dsn"
-          healthcheck: "https://dsn-lambeth-production-bbde28caea16.herokuapp.com/api/healthcheck"
+          # healthcheck: "https://dsn-lambeth-production-bbde28caea16.herokuapp.com/api/healthcheck"
           dontuseforce: 1
         env:
-          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_PROJECT_ID }}
-          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_DATASET }}
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
           # Sanity CMS
-          HD_NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_PROJECT_ID }}
-          HD_SANITY_SECRET_TOKEN: ${{ secrets.LAMBETH_SANITY_SECRET_TOKEN }}
-          HD_NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.LAMBETH_NEXT_PUBLIC_SANITY_DATASET }}
-          # Sanity Studio
-          HD_NEXT_PUBLIC_API_URL: ${{ secrets.LAMBETH_NEXT_PUBLIC_API_URL }}
+          HD_NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          HD_SANITY_SECRET_TOKEN: ${{ secrets.SANITY_SECRET_TOKEN }}
+          HD_NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
+          # Sanity Studio - not used by lambeth
+          # HD_NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
           # Feedback Spreadsheet
-          HD_NEXT_PUBLIC_SPREADSHEET_ID: ${{ secrets.LAMBETH_NEXT_PUBLIC_SPREADSHEET_ID }}
-          HD_NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL: ${{ secrets.LAMBETH_NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL }}
-          HD_GOOGLE_SERVICE_PRIVATE_KEY: ${{ secrets.LAMBETH_GOOGLE_SERVICE_PRIVATE_KEY }}
+          HD_NEXT_PUBLIC_SPREADSHEET_ID: ${{ secrets.NEXT_PUBLIC_SPREADSHEET_ID }}
+          HD_NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL: ${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL }}
+          HD_GOOGLE_SERVICE_PRIVATE_KEY: ${{ secrets.GOOGLE_SERVICE_PRIVATE_KEY }}
           # Emails
-          HD_SENDGRID_API_KEY: ${{ secrets.LAMBETH_SENDGRID_API_KEY }}
-          HD_FEEDBACK_TO_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_TO_EMAIL }}
-          HD_FEEDBACK_FROM_EMAIL: ${{ secrets.LAMBETH_FEEDBACK_FROM_EMAIL }}
+          HD_SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          HD_FEEDBACK_TO_EMAIL: ${{ secrets.FEEDBACK_TO_EMAIL }}
+          HD_FEEDBACK_FROM_EMAIL: ${{ secrets.FEEDBACK_FROM_EMAIL }}
           # Api key
-          HD_NEXT_PUBLIC_API_KEY: ${{ secrets.LAMBETH_NEXT_PUBLIC_API_KEY }}
+          HD_NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}
