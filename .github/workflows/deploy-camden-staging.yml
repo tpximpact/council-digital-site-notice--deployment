@@ -18,6 +18,7 @@ jobs:
       - name: Checkout DSN code
         run: |
           git clone https://github.com/tpximpact/council-digital-site-notice .
+          git checkout staging
           ls -lah
 
       - name: Setup git config
