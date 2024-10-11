@@ -63,4 +63,4 @@ jobs:
           HD_FEEDBACK_TO_EMAIL: ${{ secrets.FEEDBACK_TO_EMAIL }}
           HD_FEEDBACK_FROM_EMAIL: ${{ secrets.FEEDBACK_FROM_EMAIL }}
           # Api key
-          HD_NEXT_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_API_KEY }}
+          HD_OUR_API_KEY: ${{ secrets.OUR_API_KEY }}
