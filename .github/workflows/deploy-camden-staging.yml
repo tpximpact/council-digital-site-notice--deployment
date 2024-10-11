@@ -1,4 +1,4 @@
-name: Deploy to Camden Netlify Staging
+name: Deploy to Camden Heroku Staging
 
 on:
   repository_dispatch:
@@ -18,28 +18,48 @@ jobs:
       - name: Checkout DSN code
         run: |
           git clone https://github.com/tpximpact/council-digital-site-notice .
-          git checkout staging
+          git switch staging
+          git status
           ls -lah
 
-      - name: Setup git config
+      - name: Create heroku.yml
         run: |
-          git config --global user.name "Council Digital Site Notice Deployment Bot"
-          git config --global user.email "${{secrets.CAMDEN_GITHUB_DEPLOY_EMAIL}}"
+          echo 'build:' > heroku.yml
+          echo '  docker:' >> heroku.yml
+          echo '    web: Dockerfile' >> heroku.yml
+          echo '  config:' >> heroku.yml
+          echo '    NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}' >> heroku.yml
+          echo '    NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}' >> heroku.yml
+          echo 'run:' >> heroku.yml
+          echo '  web: yarn start' >> heroku.yml
+          git config user.name "Heroku-Deploy"
+          git config user.email "${{ secrets.HEROKU_EMAIL }}"
+          git add 'heroku.yml'
+          git commit -m 'heroku.yml' --no-verify
+          ls -lah
 
-      # https://stackoverflow.com/a/69979203
-      - name: Unset extraheader if exists
-        run: |
-          git config --get-all http.https://github.com/.extraheader && git config --unset-all http.https://github.com/.extraheader || echo "No extraheader to unset"
-
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.9.0
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.13.15
         with:
-          ssh-private-key: ${{ secrets.CAMDEN_GITHUB_DEPLOY_TOKEN }}
-
-      - name: Add remote repo
-        run: |
-          git remote add camden-dsn git@github.com:tpximpact/camden-digital-site-notice.git
-
-      - name: Deploy to repo
-        run: |
-          git push camden-dsn staging
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          stack: "container"
+          dontuseforce: 1
+        env:
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
+          # Sanity CMS
+          HD_NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          HD_SANITY_SECRET_TOKEN: ${{ secrets.SANITY_SECRET_TOKEN }}
+          HD_NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
+          # SANITY STUDIO
+          HD_NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          # COMMENTS & FEEDBACK
+          HD_NEXT_PUBLIC_SPREADSHEET_ID: ${{ secrets.NEXT_PUBLIC_SPREADSHEET_ID }}
+          HD_NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL: ${{ secrets.NEXT_PUBLIC_GOOGLE_CLIENT_EMAIL }}
+          HD_GOOGLE_SERVICE_PRIVATE_KEY: ${{ secrets.GOOGLE_SERVICE_PRIVATE_KEY }}
+          # EMAILS
+          HD_SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          HD_FEEDBACK_TO_EMAIL: ${{ secrets.FEEDBACK_TO_EMAIL }}
+          HD_FEEDBACK_FROM_EMAIL: ${{ secrets.FEEDBACK_FROM_EMAIL }}
