@@ -22,34 +22,17 @@ jobs:
           git status
           ls -lah
 
-      # - name: Create heroku.yml
-      #   run: |
-      #     echo 'build:' > heroku.yml
-      #     echo '  docker:' >> heroku.yml
-      #     echo '    web: Dockerfile' >> heroku.yml
-      #     echo '  config:' >> heroku.yml
-      #     echo '    NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}' >> heroku.yml
-      #     echo '    NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}' >> heroku.yml
-      #     echo 'run:' >> heroku.yml
-      #     echo '  web: yarn start' >> heroku.yml
-      #     cat heroku.yml
-      #     git config user.name "Heroku-Deploy"
-      #     git config user.email "${{ secrets.HEROKU_EMAIL }}"
-      #     git add 'heroku.yml'
-      #     git commit -m 'heroku.yml' --no-verify
-      #     ls -lah
-
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.13.15
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          # stack: "container"
+          stack: "container"
           docker_build_args: |
             NEXT_PUBLIC_SANITY_PROJECT_ID
             NEXT_PUBLIC_SANITY_DATASET
-          # dontuseforce: 1
+          dontuseforce: 1
           usedocker: true
         env:
           NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
