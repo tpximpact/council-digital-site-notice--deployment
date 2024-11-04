@@ -15,25 +15,13 @@ jobs:
           echo "Received repository dispatch event"
           echo "${{ github.event.client_payload.description }}"
 
+      - name: "Install Heroku CLI"
+        run: curl https://cli-assets.heroku.com/install.sh | sh
+
       - name: Checkout DSN code
         run: |
           git clone https://github.com/tpximpact/council-digital-site-notice .
-          ls -lah
-
-      - name: Create heroku.yml
-        run: |
-          echo 'build:' > heroku.yml
-          echo '  docker:' >> heroku.yml
-          echo '    web: Dockerfile' >> heroku.yml
-          echo '  config:' >> heroku.yml
-          echo '    NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}' >> heroku.yml
-          echo '    NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}' >> heroku.yml
-          echo 'run:' >> heroku.yml
-          echo '  web: yarn start' >> heroku.yml
-          git config user.name "Heroku-Deploy"
-          git config user.email "${{ secrets.HEROKU_EMAIL }}"
-          git add 'heroku.yml'
-          git commit -m 'heroku.yml' --no-verify
+          git status
           ls -lah
 
       - name: Deploy to Heroku
@@ -42,8 +30,11 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          usedocker: true
           stack: "container"
-          # healthcheck: "https://dsn-lambeth-production-bbde28caea16.herokuapp.com/api/healthcheck"
+          docker_build_args: |
+            NEXT_PUBLIC_SANITY_PROJECT_ID
+            NEXT_PUBLIC_SANITY_DATASET
           dontuseforce: 1
         env:
           NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
