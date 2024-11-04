@@ -1,8 +1,8 @@
 name: "Release: production"
 
 on:
-  release:
-    types: [published]
+  push:
+    tags: ["production-v*.*.*"]
 
 jobs:
   send-event:
