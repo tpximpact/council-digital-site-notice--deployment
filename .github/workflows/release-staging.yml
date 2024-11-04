@@ -14,10 +14,10 @@ jobs:
         run: |
           if [[ "${GITHUB_REF}" =~ ^refs/tags/staging-v.* ]]; then
             echo "Tag matches the pattern"
-            echo "::set-output name=match::true"
+            run: echo "{match}={true}" >> $GITHUB_STATE
           else
             echo "Tag does not match the pattern"
-            echo "::set-output name=match::false"
+            run: echo "{match}={false}" >> $GITHUB_STATE
           fi
 
       - name: Send staging repository dispatch event
