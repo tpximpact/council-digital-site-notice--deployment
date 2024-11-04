@@ -9,19 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check if release tag matches
-        id: check_tag
-        run: |
-          if [[ "${GITHUB_REF}" =~ ^refs/tags/production-v.* ]]; then
-            echo "Tag matches the pattern"
-            run: echo "{match}={true}" >> $GITHUB_STATE
-          else
-            echo "Tag does not match the pattern"
-            run: echo "{match}={false}" >> $GITHUB_STATE
-          fi
-
       - name: Send production repository dispatch event
-        if: steps.check_tag.outputs.match == 'true'
         run: |
           curl -X POST \
             -H "Accept: application/vnd.github.v3+json" \
