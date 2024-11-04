@@ -1,0 +1,30 @@
+name: "Release: production"
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  send-event:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if release tag matches
+        id: check_tag
+        run: |
+          if [[ "${GITHUB_REF}" =~ ^refs/tags/production-v.* ]]; then
+            echo "Tag matches the pattern"
+            run: echo "{match}={true}" >> $GITHUB_STATE
+          else
+            echo "Tag does not match the pattern"
+            run: echo "{match}={false}" >> $GITHUB_STATE
+          fi
+
+      - name: Send production repository dispatch event
+        if: steps.check_tag.outputs.match == 'true'
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/tpximpact/council-digital-site-notice--deployment/dispatches \
+            -d '{"event_type":"code_update","client_payload":{"description":"production branch has been updated"}}'
