@@ -1,0 +1,45 @@
+name: Deploy to Lambeth Heroku Staging
+
+on:
+  repository_dispatch:
+    types: [code_update_staging]
+
+jobs:
+  handle-event:
+    runs-on: ubuntu-latest
+    environment: staging - lambeth
+
+    steps:
+      - name: Handle repository dispatch event
+        run: |
+          echo "Received repository dispatch event"
+          echo "${{ github.event.client_payload.description }}"
+
+      - name: "Install Heroku CLI"
+        run: curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Checkout DSN code
+        run: |
+          git clone https://github.com/tpximpact/council-digital-site-notice .
+          git switch staging
+          git status
+          ls -lah
+
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.13.15
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          usedocker: true
+          stack: "container"
+          docker_build_args: |
+            NEXT_PUBLIC_SANITY_PROJECT_ID
+            NEXT_PUBLIC_SANITY_DATASET
+          dontuseforce: 1
+        env:
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
+          # Sanity CMS
+          HD_NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          HD_NEXT_PUBLIC_SANITY_DATASET: ${{ secrets.NEXT_PUBLIC_SANITY_DATASET }}
